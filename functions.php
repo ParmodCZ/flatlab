@@ -20,6 +20,10 @@ if (isset($_GET['logout'])) {
 if (isset($_POST['login_btn'])) {
 	login();
 }
+// call the insert_bid() function if register_btn is clicked
+if (isset($_POST['insert_bid'])) {
+    echo  insert_bid();
+   }
 
 function isAdmin()
 {
@@ -153,11 +157,75 @@ function display_error($er) {
 		if(isset($errors[$er])){
 			echo '<div class="error">'.$errors[$er].'<br> </div>';
 		}
-		
 		// echo '<div class="error">';
 			// foreach ($errors as $error){
 				// echo $error .'<br>';
 			// }
 		// echo '</div>';
+	}
+}
+// 
+function getAllCities() {
+	global $db;
+	$q="select * from city";
+	$cy = mysqli_query($db,$q);
+	return $cy;
+}
+// insert bid function
+function insert_bid(){
+	global $db;
+
+	$bidname          =  e($_POST['bid_name']);
+	$biddescription   =  e($_POST['bid_description']);
+	$bidtype          =  e($_POST['bid_type']);
+	$dutyprice  	  =  e($_POST['duty_price']);
+
+	$name             =  e($_POST['name']);
+	$number           =  e($_POST['number']);
+	$pickuppoint      =  e($_POST['pick_up_point']);
+	$dropoffpoint     =  e($_POST['drop_off_point']);
+	$numberofpassenser=  e($_POST['number_of_passenger']);
+	$city             =  e($_POST['city']);
+	$dutytype         =  e($_POST['duty_type']);
+	$queryfrom        =  e($_POST['query_from']);
+	$selectdutystatus =  e($_POST['select_duty_status']);
+	$roofrack         =  e($_POST['roof_rack']);
+	$cartype          =  e($_POST['car_type']);
+	$dutystatusreason =  e($_POST['duty_status_reason']);
+	$numberofdays     =  e($_POST['number_of_days']);
+	$destination      =  e($_POST['destination']);
+	$exclusions       =  e($_POST['exclusions']);
+	$specialdemanded  =  e($_POST['special_demanded']);
+
+	$bidsecretdetail  =  e($_POST['bid_secret_detail']);
+	$startend         =  e($_POST['start_end']);
+	$startdate        =  e($_POST['start_date']);
+	$bidenddate       =  e($_POST['bid_end_date']);
+
+	if (isset($_POST['active_bid']) && $_POST['active_bid'] == 'active'){ 
+		$activebid   ='1';	 
+	}
+	else{
+		$activebid  ='0';
+	 }
+	//image upload				
+	$file     = isset($_FILES['bid_image'])?$_FILES['bid_image']['tmp_name']:'';
+	
+    if($file!=""){
+		$image     = addslashes(file_get_contents($_FILES['bid_image']['tmp_name']));
+        $image_name= addslashes($_FILES['bid_image']['name']);
+        move_uploaded_file($_FILES["bid_image"]["tmp_name"],"uploads/" .$_FILES["bid_image"]["name"]);
+		copy("../uploads/" .$_FILES["bid_image"]["name"],"../uploads/" .$_FILES["bid_image"]["name"]);
+       $bidimage="uploads/". $_FILES["bid_image"]["name"];
+	}else{
+		$bidimage = '';
+	}
+	$query="INSERT into bids (bidname,biddescription,bidtype,dutyprice,name,number,pickuppoint,dropoffpoint,numberofpassenser,city,dutytype,queryfrom,selectdutystatus,roofrack,cartype,dutystatusreason,numberofdays,destination,exclusions,specialdemanded,bidsecretdetail,startend,startdate,bidenddate,activebid,bidimage) VALUES ('$bidname','$biddescription','$bidtype','$dutyprice','$name','$number','$pickuppoint','$dropoffpoint','$numberofpassenser','$city','$dutytype','$queryfrom','$selectdutystatus','$roofrack','$cartype','$dutystatusreason','$numberofdays','$destination','$exclusions','$specialdemanded','$bidsecretdetail','$startend','$startdate','$bidenddate','$activebid','$bidimage')";
+	$result = mysqli_query($db, $query);
+	
+	if ($result) {
+    	return "<div class='alert alert-success' role='alert'>New record created successfully!</div>";
+	} else {
+	    return  "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
 	}
 }
