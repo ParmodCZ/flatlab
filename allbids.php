@@ -43,7 +43,7 @@ $userid = $_SESSION['user']['id'];
                             <tbody>
 								<?php while($row =  mysqli_fetch_assoc($return)) { ?>	
                             <tr class="gradeX">
-                              <td><a href="bid_details_admin.php?id=<?php echo $id=$row['id']; ?>"><?php echo substr($row['bidname'], 0, 30)."..";  ?> </a></td>
+                              <td><a href="biddetails.php?id=<?php echo $id=$row['id']; ?>"><?php echo substr($row['bidname'], 0, 30)."..";  ?> </a></td>
                                 <td><?php echo $row['number']; ?></td>
                                 <td><?php echo $row['bidenddate'];  ?></td>
                                 <td class="center hidden-phone"><?php 

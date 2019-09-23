@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2019 at 12:22 PM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 7.0.9
+-- Generation Time: Sep 23, 2019 at 04:15 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.1.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -31,7 +33,7 @@ CREATE TABLE `bidders_bids` (
   `bidid` int(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `contact` varchar(50) NOT NULL,
-  `date_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `amount` int(32) NOT NULL,
   `status` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -85,10 +87,9 @@ CREATE TABLE `bids` (
 --
 
 INSERT INTO `bids` (`id`, `bidname`, `biddescription`, `bidtype`, `dutyprice`, `name`, `number`, `pickuppoint`, `dropoffpoint`, `numberofpassenser`, `city`, `dutytype`, `queryfrom`, `selectdutystatus`, `roofrack`, `cartype`, `dutystatusreason`, `numberofdays`, `destination`, `exclusions`, `specialdemanded`, `bidsecretdetail`, `startend`, `startdate`, `bidenddate`, `activebid`, `bidimage`, `bidby`) VALUES
-(3, 'this one', 'helod', '1', '33', 'dfds', '24', 'vxv', 'bfcgvx', '18', '1', 'LDD', 'HireCab', '1', 'Yes', 'Indica', 'Price High', '10', '234423', 'wqeqw', 'dqweqw', 'csdfsd', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '', '1'),
-(4, 'dasd', 'jhh', 'nj', 'jj', 'jj', '099', 'nhh', 'hh', 'hhhhhhhh', '2', 'j', NULL, NULL, NULL, NULL, NULL, 'u', NULL, 'b', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
-(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1'),
-(6, 'wdasdasd', 'jkjkj', '1', '11', 'adassdas', 'k', 'kkk', 'kkk', '555', '1', 'LDD', 'Tour operator', '0', 'Yes', 'Vista', '', '5', 'jj', 'jj', '', 'khgh', '2019-10-04 08:40:00', '2019-09-27 15:40:00', '2019-09-04 16:40:00', '1', '', '');
+(3, 'that is 3', 'helod', '1', '33', 'dfds', '24', 'vxv', 'bfcgvx', '18', '1', 'LDD', 'HireCab', '1', 'Yes', 'Indica', 'Price High', '10', '234423', 'wqeqw', 'dqweqw', 'csdfsd', '1900-12-01 02:00:00', '1900-12-24 06:30:00', '2019-09-13 15:00:00', '1', '', '1'),
+(4, 'this one', 'helod', '1', '33', 'dfds', '24', 'vxv', 'bfcgvx', '18', '1', 'LDD', 'HireCab', '1', 'Yes', 'Indica', 'Price High', '10', '234423', 'wqeqw', 'dqweqw', 'csdfsd', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2019-09-28 00:00:00', '1', '', ''),
+(6, 'this one', 'helod', '1', '33', 'dfds', '24', 'vxv', 'bfcgvx', '18', '1', 'LDD', 'HireCab', '1', 'Yes', 'Indica', 'Price High', '10', '234423', 'wqeqw', 'dqweqw', 'csdfsd', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2019-09-28 00:00:00', '1', '', '');
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `user_type`, `password`) VALUES
-(1, 'admin', 'admin@gmail.com', 'admin', '46f94c8de14fb36680850768ff1b7f2a');
+(1, 'admin', 'admin@gmail.com', 'admin', '46f94c8de14fb36680850768ff1b7f2a'),
+(2, 'subadmin', 'subadmin@gmail.com', 'sub_admin', '46f94c8de14fb36680850768ff1b7f2a');
 
 --
 -- Indexes for dumped tables
@@ -179,21 +181,26 @@ ALTER TABLE `user`
 --
 ALTER TABLE `bidders_bids`
   MODIFY `users_bid_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
