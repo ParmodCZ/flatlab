@@ -4,14 +4,14 @@ include('config.php');
 $username = "";
 $email    = "";
 $errors   = array(); 
-
+// $row =getAllBids('all');
+// print_r($row);die;
 // call the register() function if register_btn is clicked
 if (isset($_POST['register_btn'])) {
 	register();
 }
-
+// call the logout() function if register_btn is clicked
 if (isset($_GET['logout'])) {
-	
 	session_destroy();
 	unset($_SESSION['user']);
 	header("location: login.php");
@@ -24,6 +24,14 @@ if (isset($_POST['login_btn'])) {
 if (isset($_POST['insert_bid'])) {
     echo  insert_bid();
    }
+// call the update_bid() function if register_btn is clicked
+if (isset($_POST['update_bid'])) {
+    echo  update_bid($_GET['id']);
+   }
+// call the delete_bid() function if register_btn is clicked
+if(isset($_GET['delete_bid'])!=""){
+ 	echo delete_bid($_GET['delete_bid']);
+}
 
 function isAdmin()
 {
@@ -228,4 +236,123 @@ function insert_bid(){
 	} else {
 	    return  "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
 	}
+}
+
+// update bid function
+function update_bid($id){
+	global $db;
+
+	$bidname          =  e($_POST['bid_name']);
+	$biddescription   =  e($_POST['bid_description']);
+	$bidtype          =  e($_POST['bid_type']);
+	$dutyprice  	  =  e($_POST['duty_price']);
+
+	$name             =  e($_POST['name']);
+	$number           =  e($_POST['number']);
+	$pickuppoint      =  e($_POST['pick_up_point']);
+	$dropoffpoint     =  e($_POST['drop_off_point']);
+	$numberofpassenser=  e($_POST['number_of_passenger']);
+	$city             =  e($_POST['city']);
+	$dutytype         =  e($_POST['duty_type']);
+	$queryfrom        =  e($_POST['query_from']);
+	$selectdutystatus =  e($_POST['select_duty_status']);
+	$roofrack         =  e($_POST['roof_rack']);
+	$cartype          =  e($_POST['car_type']);
+	$dutystatusreason =  e($_POST['duty_status_reason']);
+	$numberofdays     =  e($_POST['number_of_days']);
+	$destination      =  e($_POST['destination']);
+	$exclusions       =  e($_POST['exclusions']);
+	$specialdemanded  =  e($_POST['special_demanded']);
+
+	$bidsecretdetail  =  e($_POST['bid_secret_detail']);
+	$startend         =  e($_POST['start_end']);
+	$startdate        =  e($_POST['start_date']);
+	$bidenddate       =  e($_POST['bid_end_date']);
+
+	if (isset($_POST['active_bid']) && $_POST['active_bid'] == 'active'){ 
+		$activebid   ='1';	 
+	}
+	else{
+		$activebid  ='0';
+	 }
+	//image upload				
+	$file     = isset($_FILES['bid_image'])?$_FILES['bid_image']['tmp_name']:'';
+	
+    if($file!=""){
+		$image     = addslashes(file_get_contents($_FILES['bid_image']['tmp_name']));
+        $image_name= addslashes($_FILES['bid_image']['name']);
+        move_uploaded_file($_FILES["bid_image"]["tmp_name"],"uploads/" .$_FILES["bid_image"]["name"]);
+		copy("../uploads/" .$_FILES["bid_image"]["name"],"../uploads/" .$_FILES["bid_image"]["name"]);
+       $bidimage="uploads/". $_FILES["bid_image"]["name"];
+	}else{
+		$bidimage = '';
+	}
+	$query="UPDATE bids SET bidname ='$bidname',biddescription ='$biddescription',bidtype ='$bidtype',dutyprice ='$dutyprice',name ='$name',number ='$number',pickuppoint ='$pickuppoint',dropoffpoint='$dropoffpoint',numberofpassenser ='$numberofpassenser',city ='$city',dutytype ='$dutytype',queryfrom ='$queryfrom',selectdutystatus='$selectdutystatus',roofrack ='$roofrack',cartype ='$cartype',dutystatusreason ='$dutystatusreason',numberofdays='$numberofdays',destination='$destination',exclusions='$exclusions',specialdemanded='$specialdemanded',bidsecretdetail='$bidsecretdetail',startend='$startend',startdate='$startdate',bidenddate='$bidenddate',activebid='$activebid',bidimage='$bidimage' WHERE id='$id'";
+	$result = mysqli_query($db, $query);
+	
+	if ($result) {
+    	return "<div class='alert alert-success' role='alert'>record successfully Updated!</div>";
+	} else {
+	    return  "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
+	}
+}
+
+//get bid by id
+function getEditBid($id){
+	global $db;
+	$query="select * from bids where id='$id'";
+	$exe=mysqli_query($db, $query);
+	$row = mysqli_fetch_assoc( $exe );
+	return $row;
+
+}
+
+//get all bid
+function getAllBids($type){
+	global $db;
+	if($type =='customer'){
+		$query="select * from bids where  bidtype='1' AND  now() < `bidenddate`  AND selectdutystatus!='3' ORDER BY bidenddate ASC";
+	}else if($type =='client'){
+		$query="select * from bids where  bidtype='2' AND  now() < `bidenddate` AND  selectdutystatus!='3' ORDER BY bidenddate ASC";	
+	}else{
+		$query="select * from bids where bidtype='2' AND selectdutystatus!='3' ORDER BY bidenddate ASC ";		
+	}
+	
+	$exe=mysqli_query($db, $query);
+	//$row = mysqli_fetch_assoc( $exe );
+	return $exe;
+}
+// //get customer bid 
+// function getCustomerBids(){
+// 	global $db;
+// 	$query="select * from bids where  bidtype='1' AND  now() < `bidenddate`  AND selectdutystatus!='3' ORDER BY bidenddate ASC" ;
+// 	$exe=mysqli_query($db, $query);
+// 	//$row = mysqli_fetch_assoc( $exe );
+// 	return $exe;
+// }
+// //get client bid 
+// function getClientBids(){
+// 	global $db;
+// 	$query="select * from bids where  bidtype='2' AND  now() < `bidenddate` AND  selectdutystatus!='3' ORDER BY bidenddate ASC" ;
+// 	$exe=mysqli_query($db, $query);
+// 	//$row = mysqli_fetch_assoc( $exe );
+// 	return $exe;
+// }
+//get bid details
+function bidDetails($id){
+	global $db;
+	$query="select * from bids where id='$id'";
+	$exe=mysqli_query($db, $query);
+	$row = mysqli_fetch_assoc( $exe );
+	return $row;
+}
+
+function delete_bid($id){
+	global $db;
+	$delete=mysqli_query($db,"DELETE FROM bids WHERE id='$id'");
+	  if($delete){
+		return "<div class='alert alert-success' role='alert'>record successfully Deleted!</div>";
+	  } else {
+		 return "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
+	  }
 }

@@ -103,8 +103,6 @@
                                     echo '<option value="'.$row['id'].'">' . $row['city'] . '</option>';             
                                  }                         
                               ?> 
-                              <option>Option 2</option>
-                              <option>Option 3</option>
                            </select>
                         </div>
                      </div>
@@ -209,22 +207,47 @@
                         <label class="col-sm-2 col-sm-2 control-label" for="duty_status_reason">Duty Status Reason</label>
                         <div class="col-sm-10">
                            <select class="form-control m-bot15" id="duty_status_reason" name="duty_status_reason">
-                              <option>Option 1</option>
-                              <option>Option 2</option>
-                              <option>Option 3</option>
+                              <option value="">Select Car Type</option>   
+                                <option value="Price High">Price High</option>    
+                                <option value="Days counting issue">Days counting issue</option>
+                                <option value="Latest car model expected">Latest car model expected</option>
+                                <option value="Too much travelling">Too much travelling</option>
+                                <option value="Demanding AC in hills">Demanding AC in hills</option>
+                                <option value="Asking to show them car model">Asking to show them car model</option>
+                                 <option value="Instant requirement">Instant requirement</option>
+                                 <option value="Demanding in too low price">Demanding in too low price</option>
+                                 <option value="Higher car mode at lower price">Higher car mode at lower price</option>
+                                <option value="Wanted to Visit to office">Wanted to Visit to office</option>    
+                                <option value="Customer asking for discount">Customer asking for discount</option>
+                                <option value="Issue with Rohtang pass issue">Issue with Rohtang pass issue</option>
+                                <option value="Issue with Manikaran">Issue with Manikaran</option>
+                                <option value="Somebody else offering low price">Somebody else offering low price </option>
+                                <option value="KM Limit Issue">KM Limit Issue</option>
+                                <option value="Customer will pay once he reaches there">Customer will pay once he reaches there</option>
+                                <option value="Want to cover up chd sourrounding in local">Want to cover up chd sourrounding in local </option>
+                                <option value="Don't want to pay for car on hold">Don't want to pay for car on hold</option>
+                                 <option value="Manikaran  not covered">Manikaran  not covered</option>
+                                 <option value="Demanding non ac in less price">Demanding non ac in less price</option>
+                                 <option value="Want waver on tolls">Want waver on tolls</option>
+                                 <option value="Just want one way drop">Just want one way drop</option>
+                                 <option value="Demanding Higher brand at lower brand price">Demanding Higher brand at lower brand price</option>
+                                 <option value="Did not follow up Properly">Did not follow up Properly</option>
+                                
+                                <option value="Customer booked before my call back">Customer booked before my call back</option>
+                                <option value="Booked">Booked</option>
                            </select>
                         </div>
                      </div>
                      <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label" for="start_date">Start date</label>
                         <div class="col-sm-4">
-                           <input class="form-control" type="text" id="start_date" name="start_date" >
+                           <input class="form-control form_datetime" type="text" id="start_date" name="start_date" readonly>
                         </div>
                     <!--  </div>
                      <div class="form-group"> -->
                         <label class="col-sm-2 col-sm-2 control-label" for="start_end">Start end</label>
                         <div class="col-sm-4">
-                          <input class="form-control" type="text" id="start_end" name="start_end" >
+                          <input class="form-control form_datetime" type="text" id="start_end" name="start_end" readonly>
                         </div>
                      </div>
                      <div class="form-group">

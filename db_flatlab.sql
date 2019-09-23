@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2019 at 09:54 AM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.1.30
+-- Generation Time: Sep 22, 2019 at 12:22 PM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 7.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -21,6 +19,105 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_flatlab`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bidders_bids`
+--
+
+CREATE TABLE `bidders_bids` (
+  `users_bid_id` int(50) NOT NULL,
+  `bidid` int(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `contact` varchar(50) NOT NULL,
+  `date_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `amount` int(32) NOT NULL,
+  `status` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bidders_bids`
+--
+
+INSERT INTO `bidders_bids` (`users_bid_id`, `bidid`, `name`, `contact`, `date_time`, `amount`, `status`) VALUES
+(2, 2, 'admin', '7696399515', '2019-09-22 06:15:09', 222, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bids`
+--
+
+CREATE TABLE `bids` (
+  `id` int(11) NOT NULL,
+  `bidname` varchar(200) DEFAULT NULL,
+  `biddescription` varchar(200) DEFAULT NULL,
+  `bidtype` varchar(200) DEFAULT NULL,
+  `dutyprice` varchar(200) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `number` varchar(200) DEFAULT NULL,
+  `pickuppoint` varchar(200) DEFAULT NULL,
+  `dropoffpoint` varchar(200) DEFAULT NULL,
+  `numberofpassenser` varchar(200) DEFAULT NULL,
+  `city` varchar(200) DEFAULT NULL,
+  `dutytype` varchar(200) DEFAULT NULL,
+  `queryfrom` varchar(200) DEFAULT NULL,
+  `selectdutystatus` varchar(200) DEFAULT NULL,
+  `roofrack` varchar(200) DEFAULT NULL,
+  `cartype` varchar(200) DEFAULT NULL,
+  `dutystatusreason` varchar(200) DEFAULT NULL,
+  `numberofdays` varchar(200) DEFAULT NULL,
+  `destination` varchar(200) DEFAULT NULL,
+  `exclusions` varchar(200) DEFAULT NULL,
+  `specialdemanded` varchar(200) DEFAULT NULL,
+  `bidsecretdetail` varchar(200) DEFAULT NULL,
+  `startend` datetime DEFAULT NULL,
+  `startdate` datetime DEFAULT NULL,
+  `bidenddate` datetime DEFAULT NULL,
+  `activebid` varchar(200) DEFAULT NULL,
+  `bidimage` varchar(200) DEFAULT NULL,
+  `bidby` varchar(222) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bids`
+--
+
+INSERT INTO `bids` (`id`, `bidname`, `biddescription`, `bidtype`, `dutyprice`, `name`, `number`, `pickuppoint`, `dropoffpoint`, `numberofpassenser`, `city`, `dutytype`, `queryfrom`, `selectdutystatus`, `roofrack`, `cartype`, `dutystatusreason`, `numberofdays`, `destination`, `exclusions`, `specialdemanded`, `bidsecretdetail`, `startend`, `startdate`, `bidenddate`, `activebid`, `bidimage`, `bidby`) VALUES
+(3, 'this one', 'helod', '1', '33', 'dfds', '24', 'vxv', 'bfcgvx', '18', '1', 'LDD', 'HireCab', '1', 'Yes', 'Indica', 'Price High', '10', '234423', 'wqeqw', 'dqweqw', 'csdfsd', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '', '1'),
+(4, 'dasd', 'jhh', 'nj', 'jj', 'jj', '099', 'nhh', 'hh', 'hhhhhhhh', '2', 'j', NULL, NULL, NULL, NULL, NULL, 'u', NULL, 'b', NULL, NULL, NULL, NULL, NULL, NULL, NULL, ''),
+(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1'),
+(6, 'wdasdasd', 'jkjkj', '1', '11', 'adassdas', 'k', 'kkk', 'kkk', '555', '1', 'LDD', 'Tour operator', '0', 'Yes', 'Vista', '', '5', 'jj', 'jj', '', 'khgh', '2019-10-04 08:40:00', '2019-09-27 15:40:00', '2019-09-04 16:40:00', '1', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `city`
+--
+
+CREATE TABLE `city` (
+  `id` int(20) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `state` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `city`
+--
+
+INSERT INTO `city` (`id`, `city`, `state`) VALUES
+(1, 'Mohali', 'Chandigarh'),
+(2, 'Shimla', 'HP'),
+(3, 'Manali', 'HP'),
+(4, 'Chandigarh', 'Chandigarh'),
+(10, 'Delhi', 'Delhi'),
+(9, 'Tourism In Himachal', '9882268000'),
+(11, 'Dehradoon', 'Uttranchal'),
+(12, 'Amritsar', 'Punjab'),
+(13, 'Jammu', 'J&K'),
+(14, 'Ludhiana', 'Punjab'),
+(15, 'Test', 'test');
 
 -- --------------------------------------------------------
 
@@ -48,6 +145,24 @@ INSERT INTO `user` (`id`, `username`, `email`, `user_type`, `password`) VALUES
 --
 
 --
+-- Indexes for table `bidders_bids`
+--
+ALTER TABLE `bidders_bids`
+  ADD PRIMARY KEY (`users_bid_id`);
+
+--
+-- Indexes for table `bids`
+--
+ALTER TABLE `bids`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `city`
+--
+ALTER TABLE `city`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -60,12 +175,25 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `bidders_bids`
+--
+ALTER TABLE `bidders_bids`
+  MODIFY `users_bid_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `bids`
+--
+ALTER TABLE `bids`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `city`
+--
+ALTER TABLE `city`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

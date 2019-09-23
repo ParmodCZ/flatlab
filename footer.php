@@ -21,7 +21,7 @@
     <script src="js/owl.carousel.js" ></script>
     <script src="js/jquery.customSelect.min.js" ></script>
     <script src="js/respond.min.js" ></script>
-
+    <script src="js/datetimepicker.min.js" ></script>
     <!--right slidebar-->
     <script src="js/slidebars.min.js"></script>
 
@@ -36,8 +36,9 @@
   <script>
 
       //owl carousel
-
+ 
       $(document).ready(function() {
+      	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
           $("#owl-demo").owlCarousel({
               navigation : true,
               slideSpeed : 300,

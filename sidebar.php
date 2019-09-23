@@ -9,7 +9,20 @@
                           <span>Dashboard</span>
                       </a>
                   </li>
-
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-laptop"></i>
+                          <span>bids</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="addbid.php">Add Bis</a></li>
+                          <li><a  href="allbids.php?bid_type=all">List of Bids</a></li>
+                          <li><a  href="allbids.php?bid_type=client">Client bis</a></li>
+                          <li><a  href="allbids.php?bid_type=customer">Customer bids</a></li>
+                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
+                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                      </ul>
+                  </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-laptop"></i>
