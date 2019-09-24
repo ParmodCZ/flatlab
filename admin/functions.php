@@ -332,6 +332,14 @@ function getEditBid($id){
 }
 
 //get all bid
+function getVendorBids(){
+	global $db;
+	$query="select * from bids where bidtype='2' AND now() < `bidenddate` AND selectdutystatus!='3' ORDER BY bidenddate ASC";
+	$exe=mysqli_query($db, $query);
+	return $exe;
+}
+
+//get all bid
 function getAllBids($type){
 	global $db;
 	if($type =='customer'){
@@ -389,9 +397,9 @@ function shortlist_bid($value){
 function delete_bid($id){
 	global $db;
 	$delete=mysqli_query($db,"DELETE FROM bids WHERE id='$id'");
-	  if($delete){
+	if($delete){
 		return "<div class='alert alert-success' role='alert'>record successfully Deleted!</div>";
-	  } else {
-		 return "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
-	  }
+	} else {
+		return "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
+	}
 }

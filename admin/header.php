@@ -1,4 +1,6 @@
-<?php include('admin/functions.php'); ?>
+<?php
+include('functions.php'); 
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,20 +14,20 @@
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-reset.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-reset.css" rel="stylesheet">
     <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+    <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="../assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/owl.carousel.css" type="text/css">
 
     <!--right slidebar-->
-    <link href="css/slidebars.css" rel="stylesheet">
+    <link href="../css/slidebars.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
 
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/style-responsive.css" rel="stylesheet" />
 
 
 
@@ -39,18 +41,19 @@
   <body>
 
   <section id="container" >
-  <?php //if (isAdmin()) { ?>
+  <?php if (isAdmin()) { ?>
       <!--header start-->
       <header class="header white-bg">
-              <!--<div class="sidebar-toggle-box">
+              <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-              </div>  -->
+              </div>
             <!--logo start-->
             <a href="index.html" class="logo">Flat<span>lab</span></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
-               <!-- <ul class="nav top-menu">
+                <ul class="nav top-menu">
+                    <!-- settings start -->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-tasks"></i>
@@ -132,7 +135,8 @@
                             </li>
                         </ul>
                     </li>
-                    
+                    <!-- settings end -->
+                    <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-envelope-o"></i>
@@ -145,7 +149,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="../img/avatar-mini.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Jonathan Smith</span>
                                     <span class="time">Just now</span>
@@ -157,7 +161,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini2.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="../img/avatar-mini2.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Jhon Doe</span>
                                     <span class="time">10 mins</span>
@@ -169,7 +173,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini3.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="../img/avatar-mini3.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Jason Stathum</span>
                                     <span class="time">3 hrs</span>
@@ -181,7 +185,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="img/avatar-mini4.jpg"></span>
+                                    <span class="photo"><img alt="avatar" src="../img/avatar-mini4.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Jondi Rose</span>
                                     <span class="time">Just now</span>
@@ -196,7 +200,8 @@
                             </li>
                         </ul>
                     </li>
-                   
+                    <!-- inbox dropdown end -->
+                    <!-- notification dropdown start-->
                     <li id="header_notification_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
@@ -248,7 +253,8 @@
                             </li>
                         </ul>
                     </li>
-                </ul> -->
+                    <!-- notification dropdown end -->
+                </ul>
                 <!--  notification end -->
             </div>
             <div class="top-nav ">
@@ -258,22 +264,27 @@
                         <input type="text" class="form-control search" placeholder="Search">
                     </li>
                     <!-- user login dropdown start-->
-					<li class="dropdown">
-                        <a  class="dropdown-toggle" href="login.php">
-                           Login
-                        </a>
-                    </li>
                     <li class="dropdown">
-                        <a  class="dropdown-toggle" href="register.php">
-                           Register
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <img alt="" src="../img/avatar1_small.jpg">
+                            <span class="username">Jhon Doue</span>
+                            <b class="caret"></b>
                         </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+                            <li><a href="admin.php?logout"><i class="fa fa-key"></i> Log Out</a></li>
+                        </ul>
                     </li>
+                    
                     <!-- user login dropdown end -->
                 </ul>
                 <!--search & user info end-->
             </div>
         </header>
       <!--header end-->
-  <?php //} ?>
+  <?php } ?>
 
           
