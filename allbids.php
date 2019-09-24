@@ -13,9 +13,10 @@ if(isset($_GET['bid_type'])!=""){
  $return =getAllBids($bidty);
 //echo"<pre>";print_r($_SESSION);die;
 $userid = $_SESSION['user']['id'];
+$role= $_SESSION['user']['user_type'];
 ?>
       <!--main content start-->
-      <section id="main-content">
+<section id="main-content">
 <section class="wrapper site-min-height">
   <!-- page start-->
     <div class="row">
@@ -41,20 +42,20 @@ $userid = $_SESSION['user']['id'];
                             </tr>
                             </thead>
                             <tbody>
-								<?php while($row =  mysqli_fetch_assoc($return)) { ?>	
+								            <?php while($row =  mysqli_fetch_assoc($return)) { ?>	
                             <tr class="gradeX">
                               <td><a href="biddetails.php?id=<?php echo $id=$row['id']; ?>"><?php echo substr($row['bidname'], 0, 30)."..";  ?> </a></td>
                                 <td><?php echo $row['number']; ?></td>
                                 <td><?php echo $row['bidenddate'];  ?></td>
                                 <td class="center hidden-phone"><?php 
 								      $cu=date("Y-m-d H:i:s");
-								if (strtotime($cu) < strtotime($row['bidenddate']) ){
-										$st="Active";
-										echo '<span class="label label-info label-mini">Open</span>';
-								}else{
-										$st="Closed";
-										echo '<span class="label label-warning label-mini">Closed</span>';
-								}
+      								if (strtotime($cu) < strtotime($row['bidenddate']) ){
+      										$st="Active";
+      										echo '<span class="label label-info label-mini">Open</span>';
+      								}else{
+      										$st="Closed";
+      										echo '<span class="label label-warning label-mini">Closed</span>';
+      								}
 											$sql2="select * from bidders_bids where bidid='$id'";
 											$exe2=mysqli_query($db,$sql2);
 											$bidcount=mysqli_num_rows($exe2);
@@ -75,21 +76,18 @@ $userid = $_SESSION['user']['id'];
 									   ?></td>
                                           <td class="center hidden-phone"><?php $d_status=$row['selectdutystatus'];
 									  if($d_status=='0'){echo "Booked";}elseif($d_status=='1'){echo "In Progress";}elseif($d_status=='2'){echo "Customer Offer";}elseif($d_status=='3'){echo "Dead On Arrival";}else{ echo " ";}
-									  ?></td>
-										   
-                                        
+									  ?></td>                   
 									<td><?php
-                                  if( $bid_by==$userid){ ?>    <a href="biddetails.php?id=<?php echo $id=$row['id']; ?>"> <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button></a>
-                                      <a href="editbid.php?id=<?php echo $id=$row['id']; ?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                     <a href="allbids.php?delete_bid=<?php echo $id=$row['id']; ?>"onclick="return confirm('Are you sure you want to delete this Record?');"" ><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
-								 <?php } else{ echo  "No Access"; } ?>  </td>
-										  
-                                      </tr>
-                                      
-<?php } ?>
-                          </table>
-                                </div>
-                          </div>
+                  if( $role == 'admin' OR $bid_by==$userid){ ?>
+                    <a href="biddetails.php?id=<?php echo $id=$row['id']; ?>"> <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button></a>
+                    <a href="editbid.php?id=<?php echo $id=$row['id']; ?>"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+                    <a href="allbids.php?delete_bid=<?php echo $id=$row['id']; ?>"onclick="return confirm('Are you sure you want to delete this Record?');"" ><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+								   <?php } else{ echo  "No Access"; } ?>  </td>
+                  </tr>                               
+        <?php } ?>
+                      </table>
+                            </div>
+                      </div>
                       </section>
                   </div>
               </div>

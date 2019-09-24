@@ -4,7 +4,6 @@ include('config.php');
 $username = "";
 $email    = "";
 $errors   = array(); 
-// $row =getAllBids('all');
 // print_r($row);die;
 // call the register() function if register_btn is clicked
 if (isset($_POST['register_btn'])) {
@@ -16,23 +15,33 @@ if (isset($_GET['logout'])) {
 	unset($_SESSION['user']);
 	header("location: login.php");
 }
-// call the login() function if register_btn is clicked
+// call the login() function if login_btn is clicked
 if (isset($_POST['login_btn'])) {
 	login();
 }
-// call the insert_bid() function if register_btn is clicked
+// call the insert_bid() function if submit is clicked
 if (isset($_POST['insert_bid'])) {
     echo  insert_bid();
    }
-// call the update_bid() function if register_btn is clicked
+// call the update_bid() function if submit is clicked
 if (isset($_POST['update_bid'])) {
     echo  update_bid($_GET['id']);
    }
-// call the delete_bid() function if register_btn is clicked
+// call the delete_bid() function if submit is clicked
 if(isset($_GET['delete_bid'])!=""){
  	echo delete_bid($_GET['delete_bid']);
 }
-
+// call the add_bids() function if submit is clicked
+if (isset($_POST['add_bids'])) {
+    echo add_bids($_GET['id']);
+}
+// call the delete_bid() function if submit is clicked
+if(isset($_GET['shortlist_ubid'])!=""){
+	$formdta = array();
+	$formdta['ubid']= $_GET['shortlist_ubid'];
+	$formdta['bidid']= $_GET['bidid'];
+ 	echo shortlist_bid($formdta);
+}
 function isAdmin()
 {
 	if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
@@ -105,7 +114,6 @@ function login(){
 	// grap form values
 	$username = e($_POST['username']);
 	$password = e($_POST['password']);
-
 	// make sure form is filled properly
 	if (empty($username)) {
 		//array_push($errors, "Username is required");
@@ -115,19 +123,19 @@ function login(){
 		//array_push($errors, "Password is required");
 		$errors['password'] ="Password is required";
 	}
-
 	// attempt login if no errors on form
-
 	if (count($errors) == 0) {
 		$password = md5($password);
-
 		$query = "SELECT * FROM user WHERE username='$username' AND password='$password' LIMIT 1";
 		$results = mysqli_query($db, $query);
 		if (mysqli_num_rows($results) == 1) { // user found
 			// check if user is admin or user
 			$logged_in_user = mysqli_fetch_assoc($results);
 			if ($logged_in_user['user_type'] == 'admin') {
-
+				$_SESSION['user'] = $logged_in_user;
+				$_SESSION['success']  = "You are now logged in";
+				header('location: admin.php');		  
+			}else if ($logged_in_user['user_type'] == 'sub_admin') {
 				$_SESSION['user'] = $logged_in_user;
 				$_SESSION['success']  = "You are now logged in";
 				header('location: admin.php');		  
@@ -297,6 +305,22 @@ function update_bid($id){
 	}
 }
 
+// add bids function
+function add_bids($id){
+	global $db;
+	//$id	= $_SESSION['bid_id'] ;	
+	$name  	  = e($_POST['name']);
+	$contact  = e($_POST['contact']);
+	$amount   = e($_POST['amount']);
+	$query="INSERT into bidders_bids (bidid,name,contact,amount) VALUES ( '$id','$name','$contact','$amount' )";
+	$result = mysqli_query($db, $query);
+	if ($result) {
+    	return "<div class='alert alert-success' role='alert'>Bid successfully Add!</div>";
+	} else {
+	    return  "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
+	} 
+}
+
 //get bid by id
 function getEditBid($id){
 	global $db;
@@ -345,6 +369,21 @@ function bidDetails($id){
 	$exe=mysqli_query($db, $query);
 	$row = mysqli_fetch_assoc( $exe );
 	return $row;
+}
+
+function shortlist_bid($value){
+	global $db;
+	$bidid = $value['bidid'];
+	$ubid = $value['ubid'];
+	$updated=mysqli_query($db,"UPDATE bidders_bids SET status='0'  WHERE bidid='$bidid'");
+	if($updated){
+	$updated2=mysqli_query($db,"UPDATE bidders_bids SET status='1'  WHERE bidid='$bidid' && users_bid_id=' $ubid'");
+		if($updated2){
+			return "<div class='alert alert-success' role='alert'>This One Shortlist successfully!</div>";
+		}else {
+			return "<div class='alert alert-warning' role='alert'>Something Wrong!</div>";
+		}
+	}
 }
 
 function delete_bid($id){

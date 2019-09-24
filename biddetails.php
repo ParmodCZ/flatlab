@@ -7,6 +7,7 @@ if (!isAdmin()) {
 include('sidebar.php');
 $id=$_GET['id'];
 $_SESSION['bid_id'] = $id;
+$role = $_SESSION['user']['user_type'];
 $row =bidDetails($id);
 global $db; 
 $userid = $_SESSION['user']['id'];
@@ -14,7 +15,6 @@ $userid = $_SESSION['user']['id'];
   <section id="main-content">
           <section class="wrapper">
               <!-- page start-->
-              
               <div class="row">
                   <div class="col-lg-12">
                       <!--latest product info start-->
@@ -24,12 +24,13 @@ $userid = $_SESSION['user']['id'];
                                   <span class="arrow-pro right"></span>
                                   <div class="panel-body">
                                       <h1><strong>
-									  <?php echo  $row['bidname']; 
-									             $by=$row['bidby'];  
-									  ?>         
-                    </strong><br> 
-                    Bid ID: <?php
-									  echo  "#".$row['id'];  ?></h1>
+                    									  <?php echo  $row['bidname']; 
+                    									     $by=$row['bidby'];  
+                    									  ?>         
+                                        </strong><br> 
+                                        Bid ID: <?php
+                    									  echo  "#".$row['id'];  ?>
+                                      </h1>
                     <div class="desk yellow">
                         <h3><?php echo $row['bidname'];  ?></h3>
                         <p><?php echo  $row['biddescription'];  ?></p>
@@ -39,27 +40,22 @@ $userid = $_SESSION['user']['id'];
 									   
 									   $cu=date("Y-m-d h:i:s");
 									   ?></h2>
-										</br>Time Left:<div id="time"><time datetime="<?php echo $b_exp ?>+0530"></time></div>
-											
-<?php									   																		
-  if($row['selectdutystatus']=='3'){
-  		 $st="Closed";
-  	echo '<button class="btn btn-danger" type="button">Closed</button>';
-  		 
-  	 }
-  else if (strtotime($cu) < strtotime($b_exp) ){
-  	$st="Active";
-  	echo '<button class="btn btn-success" type="button">Active</button>';
-  	
-  }
-  else
-  {
-  	$st="Closed";
-  	echo '<button class="btn btn-danger" type="button">Closed</button>';
-
-  	}
-?>						 
-									 
+										</br>Time Left:<div id="time"><time datetime="<?php echo $b_exp ?>+0530"></time></div>		
+                <?php									   																		
+                  if($row['selectdutystatus']=='3'){
+                  		 $st="Closed";
+                  	echo '<button class="btn btn-danger" type="button">Closed</button>';	 
+                  	 }
+                  else if (strtotime($cu) < strtotime($b_exp) ){
+                  	$st="Active";
+                  	echo '<button class="btn btn-success" type="button">Active</button>';
+                  }
+                  else
+                  {
+                  	$st="Closed";
+                  	echo '<button class="btn btn-danger" type="button">Closed</button>';
+                  	}
+                ?>						 	 
             </div>
         </div>
     </aside>
@@ -70,7 +66,7 @@ $userid = $_SESSION['user']['id'];
        <h1><strong>Booking Details</strong></h1>
       	<ul id="book-det">
            <li><span>Name:</span> <?php echo  $row['name'];  ?></li>
-           <li><span>Mobile:</span> <?php if($role=='1'){ echo  $row['number']; }else{ echo "XXXXXX";} ?></li>
+           <li><span>Mobile:</span> <?php if($role=='admin'){ echo  $row['number']; }else{ echo "XXXXXX";} ?></li>
            <li><span>Pick up Point:</span> <?php echo  $row['pickuppoint'];  ?></li>
            <li><span>Drop off Point:</span> <?php echo  $row['dropoffpoint'];  ?></li>
            <li><span>Passengers:</span> <?php echo  $row['numberofpassenser'];  ?></li>
@@ -83,7 +79,7 @@ $userid = $_SESSION['user']['id'];
            <li><span>Destination:</span> <?php echo  $row['destination'];  ?></li>
            <li><span>Exclusion:</span> <?php echo  $row['exclusions'];  ?></li>  
           <li><span>Special Demands:</span> <?php echo  $row['specialdemanded'];  ?></li> 
-          <?php if($role=='1'){  ?>
+          <?php if($role=='admin'){  ?>
           <li><span>Duty Status:<?php   $r=$row['selectdutystatus']; if($r==1){ echo "In Progress"; }else if($r==0){ echo "Booked";}else{ echo "";}  ?></li>
           <li>Duty Price:<?php  echo  $r=$row['dutyprice'];  ?></li>
           <?php } ?> 
@@ -119,7 +115,7 @@ $userid = $_SESSION['user']['id'];
                 ?> 
 							 <tr><td>
 										<a href="#"><?php 
-												if($role=='1'){ 
+												if($role=='admin'){ 
 																	echo  $row2['name'];
 																}else
 																{ 
@@ -130,7 +126,7 @@ $userid = $_SESSION['user']['id'];
 								 </td>
                                  
 								 <td class="hidden-phone">
-									 <?php if($role=='1'){
+									 <?php if($role=='admin'){
 														echo  $row2['contact'];
 														}
 											else
@@ -144,7 +140,7 @@ $userid = $_SESSION['user']['id'];
 										<?php echo  $row2['date_time'];  ?> 
 								</td>
                                  <td><span class="label label-info label-mini">
-								 <?php if($role=='1'){ 
+								 <?php if($role=='admin'){ 
 													echo  $row2['amount'];
 													}
 													else
@@ -152,30 +148,33 @@ $userid = $_SESSION['user']['id'];
 														echo "XXXX";
 													} 
 									?> </span></td>
-                                  <?php 
-								  
-if($row2['status']=='0'){  $act="Shortlist"; $span="label label-danger label-mini"; } else {  $act="finalist"; $span="label label-success label-mini"; } 
-								  
-					if($role=='1'){ 	?>		  
-								  <td><a href="bid_final.php?ubid=<?php echo $ubid=$row2['users_bid_id'];?> && bid_id=<?php echo $id;?>"><span class="<?php echo $span; ?>"><?php echo $act; ?></span></a></td>
-                          <?php  }else
-							  {
-										echo "";				
-							  }?>					
-						</tr>
-							<?php } 			
-                            
-
-							if($st=="Closed"){
-												echo " ";
-											}else{   
-								?>
+<?php 						  
+if($row2['status']=='0'){
+  $act="Shortlist";
+  $span="label label-danger label-mini";
+}else { 
+  $act="finalist";
+   $span="label label-success label-mini"; 
+} 				  
+if($role=='admin'){ 	?>		  
+	<td><a href="biddetails.php?shortlist_ubid=<?php echo $ubid=$row2['users_bid_id'];?> && bidid=<?php echo $id;?>&& id=<?php echo $id;?>">
+    <span class="<?php echo $span; ?>">
+  <?php echo $act; ?></span></a></td>
+  <?php }else{
+						echo "";				
+				}?>					
+	</tr>
+<?php } 			
+if($st=="Closed"){
+					echo " ";
+				}else{   
+	?>
 							  <tr>
-                   <form action="action.php" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                   <form method="POST" action="">
                 <td>
                  <input type="text" name="name" class="form-control"   placeholder="Name"  pattern="[a-zA-Z]+"
-    oninvalid="setCustomValidity('Plz enter  valid name ')"
-    onchange="try{setCustomValidity('')}catch(e){}" required>
+                      oninvalid="setCustomValidity('Plz enter  valid name ')"
+                      onchange="try{setCustomValidity('')}catch(e){}" required>
                                   </td>
 								  <td><input type="text" name="contact" class="form-control" value="" placeholder="Contact" pattern="[0-9]+"
     oninvalid="setCustomValidity('Plz enter  valid mobile Number ')"
@@ -184,7 +183,7 @@ if($row2['status']=='0'){  $act="Shortlist"; $span="label label-danger label-min
                                   <td><input type="text" name="amount" class="form-control"  value="" placeholder="Amount" pattern="[0-9]+"
     oninvalid="setCustomValidity('Enter Amount Only')"
     onchange="try{setCustomValidity('')}catch(e){}" required></td>
-                                  <td><button type="submit" name="admin_bid" class="btn btn-success">Submit</button></td>                                  
+                                  <td><button type="submit" name="add_bids" class="btn btn-success">Submit</button></td>                                  
                              </form>   
 							 </tr>
 											<?php  } ?>							 
@@ -192,43 +191,41 @@ if($row2['status']=='0'){  $act="Shortlist"; $span="label label-danger label-min
                           </table>
                       </section>
                   </div>
-              </div>
-              
-              <!-- Finalist Bidder Table Starts-->
-			  
+              </div>           
+              <!-- Finalist Bidder Table Starts-->	  
 			<?php  $sql3="select * from bidders_bids where bidid='$id' && status='1'";
 							$exe3=mysqli_query($db,$sql3);
 							$row3 = mysqli_fetch_assoc( $exe3 );
 			  ?>
-              <div class="row">
-                  <div class="col-lg-12">
-                      <section class="panel">
-                          <header class="panel-heading">
-                              Bidding List</header>
-                          <table class="table table-striped table-advance table-hover">
-                              <thead>
-                              <tr>
-                                  <th>Finalist Bidder Details</th>
-                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> Bider Contact</th>
-                                  <th><i class="fa fa-bookmark"></i> Date &amp; Time</th>
-                                  <th><i class=" fa fa-edit"></i> Bid Amount</th>
-                                  <th>Action</th>
-                              </tr>
-                              </thead>
-                              <tbody>
+          <div class="row">
+              <div class="col-lg-12">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          Bidding List</header>
+                      <table class="table table-striped table-advance table-hover">
+                          <thead>
+                          <tr>
+                              <th>Finalist Bidder Details</th>
+                              <th class="hidden-phone"><i class="fa fa-question-circle"></i> Bider Contact</th>
+                              <th><i class="fa fa-bookmark"></i> Date &amp; Time</th>
+                              <th><i class=" fa fa-edit"></i> Bid Amount</th>
+                              <th>Action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
                              <?php  
 							 $num = mysqli_num_rows( $exe3 ); 
 							 if($num=='1'){
 							 ?>
 							  <tr>
                               
-							  <td><a href="#"><?php  if($role=='1'){ echo  $row3['name'];}else{ echo 'XXXX';}  ?></a></td>
-                                  <td class="hidden-phone"><?php if($role=='1'){ echo  $row3['contact']; }else{ echo 'XXXX'; }  ?></td>
+							  <td><a href="#"><?php  if($role=='admin'){ echo  $row3['name'];}else{ echo 'XXXX';}  ?></a></td>
+                                  <td class="hidden-phone"><?php if($role=='admin'){ echo  $row3['contact']; }else{ echo 'XXXX'; }  ?></td>
                                   <td><?php echo  $row3['date_time'];  ?> </td>
-                                  <td><span class="label label-info label-mini"><?php if($role=='1'){ echo  $row3['amount']; }else{ echo "XXXX";} ?> </span></td>
+                                  <td><span class="label label-info label-mini"><?php if($role=='admin'){ echo  $row3['amount']; }else{ echo "XXXX";} ?> </span></td>
 								  <td>
                                       <span class="label label-success label-mini">Finalist</span>
-                             <?php  if($role=='1'){  ?>
+                             <?php  if($role=='admin'){  ?>
 							 <a href="del_final.php?ubid=<?php echo $ubid=$row3['users_bid_id'];?> && bid_id=<?php echo $id;?>"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
 							 <?php }else{
 							 echo "";
