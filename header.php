@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="../img/favicon.png">
+    <link rel="shortcut icon" href="img/favicon.png">
 
     <title>FlatLab - Flat & Responsive Bootstrap Admin Template</title>
 
@@ -26,6 +26,7 @@
 
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
+    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
 
 

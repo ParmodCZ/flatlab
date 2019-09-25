@@ -12,7 +12,7 @@
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="../js/jquery.dcjqaccordion.2.7.js"></script>
+    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="js/jquery.sparkline.js" type="text/javascript"></script>
@@ -31,12 +31,15 @@
     <script src="js/sparkline-chart.js"></script>
     <script src="js/easy-pie-chart.js"></script>
     <script src="js/count.js"></script>
+    <script src="js/dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap4.min.js"></script>
 
   <script>
 
       //owl carousel
  
       $(document).ready(function() {
+        $('#example').DataTable();
       	$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
           $("#owl-demo").owlCarousel({
               navigation : true,

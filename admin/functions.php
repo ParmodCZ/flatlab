@@ -378,6 +378,14 @@ function bidDetails($id){
 	$row = mysqli_fetch_assoc( $exe );
 	return $row;
 }
+//frontend function bid detail
+function FbidDetails($id){
+	global $db;
+	$query="select * from bids where id='$id' ORDER BY bidenddate DESC";
+	$exe=mysqli_query($db, $query);
+	$row = mysqli_fetch_assoc( $exe );
+	return $row;
+}
 
 function shortlist_bid($value){
 	global $db;
