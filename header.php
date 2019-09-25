@@ -252,13 +252,11 @@
                 </ul> -->
                 <!--  notification end -->
             </div>
-            <div class="top-nav ">
-                <!--search & user info start-->
+<!--        <div class="top-nav ">
                 <ul class="nav pull-right top-menu">
                     <li>
                         <input type="text" class="form-control search" placeholder="Search">
                     </li>
-                    <!-- user login dropdown start-->
 					<li class="dropdown">
                         <a  class="dropdown-toggle" href="login.php">
                            Login
@@ -269,10 +267,8 @@
                            Register
                         </a>
                     </li>
-                    <!-- user login dropdown end -->
                 </ul>
-                <!--search & user info end-->
-            </div>
+            </div>  -->
         </header>
       <!--header end-->
   <?php //} ?>

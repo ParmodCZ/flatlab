@@ -44,7 +44,7 @@ if(isset($_GET['shortlist_ubid'])!=""){
 }
 function isAdmin()
 {
-	if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == 'admin' ) {
+	if ((isset($_SESSION['user'])) && ($_SESSION['user']['user_type'] == 'admin' || $_SESSION['user']['user_type'] == 'sub_admin' ) ) {
 		return true;
 	}else{
 		return false;
