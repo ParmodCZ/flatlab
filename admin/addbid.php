@@ -1,10 +1,10 @@
 <?php 
-	include('header.php'); 
-	if (!isAdmin()) {
-		//$_SESSION['msg'] = "You must log in first";
-		header('location:login.php');
-	}
-	 include('sidebar.php'); 
+include('header.php'); 
+if (!isAdmin()) {
+	//$_SESSION['msg'] = "You must log in first";
+	header('location:login.php');
+}
+ include('sidebar.php'); 
 ?>
 <!--main content start-->
 <section id="main-content">

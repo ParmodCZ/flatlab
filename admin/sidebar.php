@@ -4,12 +4,12 @@
 		<div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-                  <li>
+                 <!--  <li>
                       <a class="active" href="index.html">
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
-                  </li>
+                  </li> -->
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-laptop"></i>
@@ -24,22 +24,19 @@
                           <li><a  href="email_template.html" target="_blank">Email Template</a></li>
                       </ul>
                   </li>
+                  <?php if($role =='admin'){ ?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-laptop"></i>
-                          <span>Layouts</span>
+                          <span>Manage Sub-Admins</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">Boxed Page</a></li>
-                          <li><a  href="horizontal_menu.html">Horizontal Menu</a></li>
-                          <li><a  href="header-color.html">Different Color Top bar</a></li>
-                          <li><a  href="mega_menu.html">Mega Menu</a></li>
-                          <li><a  href="language_switch_bar.html">Language Switch Bar</a></li>
-                          <li><a  href="email_template.html" target="_blank">Email Template</a></li>
+                          <li><a  href="allsubadmin.php">View All Admin</a></li>
+                          <li><a  href="addsubadmin.php">Admin Sub Admin</a></li>
                       </ul>
                   </li>
-
-                  <li class="sub-menu">
+                <?php } ?>
+                  <!-- <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-book"></i>
                           <span>UI Elements</span>
@@ -175,8 +172,6 @@
                           <span>Login Page</span>
                       </a>
                   </li>
-
-                  <!--multi level menu start-->
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-sitemap"></i>
@@ -198,7 +193,7 @@
                               </ul>
                           </li>
                       </ul>
-                  </li>
+                  </li> -->
                   <!--multi level menu end-->
 
               </ul>
